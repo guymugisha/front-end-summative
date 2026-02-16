@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Student Finance Tracker</title>
+  <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <header>
+      <div class="brand">
+        <h1>Student Finance Tracker</h1>
+      </div>
+      <nav>
+        <a href="#dashboard" class="active">Dashboard</a>
+        <a href="#records">Records</a>
+        <a href="#add">Add Transaction</a>
+        <a href="#settings">Settings</a>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Dashboard -->
+      <section id="dashboard" class="fade-in">
+        <h2>Dashboard</h2>
+        <div class="stats-grid">
+          <div class="card stat-card">
+            <h3>Total Balance</h3>
+            <p id="totalAmount" class="stat-value">$0.00</p>
+          </div>
+          <div class="card stat-card">
+            <h3>Spending by Category</h3>
+            <div id="categoryChart" class="chart-container">
+              <!-- Chart will be rendered here -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Add Transaction Form -->
+      <section id="add" class="fade-in">
+        <div class="card">
+          <h2>Add Transaction</h2>
+          <form id="recordForm">
+            <div class="form-group">
+              <label>Transaction Type</label>
+              <div class="radio-group">
+                <label class="radio-label">
+                  <input type="radio" name="type" value="expense" checked> Expense
+                </label>
+                <label class="radio-label">
+                  <input type="radio" name="type" value="income"> Income
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="description">Description</label>
+              <input type="text" id="description" placeholder="e.g. Textbooks">
+              <span class="error" id="descError"></span>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="amount">Amount</label>
+                <input type="number" step="0.01" id="amount" placeholder="0.00">
+                <span class="error" id="amountError"></span>
+              </div>
+
+              <div class="form-group">
+                <label for="category">Category</label>
+                <select id="category">
+                  <!-- Options populated dynamically by app.js -->
+                </select>
+                <span class="error" id="catError"></span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="date">Date</label>
+              <input type="date" id="date">
+              <span class="error" id="dateError"></span>
+            </div>
+
+            <button type="submit" class="btn-primary">Add Transaction</button>
+          </form>
+          <div id="successMsg"></div>
+        </div>
+      </section>
+
+      <!-- Records Table -->
+      <section id="records" class="fade-in">
+        <div class="card">
+          <div class="section-header">
+            <h2>Transaction Records</h2>
+            <div class="controls-container">
+              <div class="search-box">
+                <input type="text" id="search" placeholder="Search transactions...">
+              </div>
+              <select id="sortOptions" class="form-control">
+                <option value="date-new">Date (Newest First)</option>
+                <option value="date-old">Date (Oldest First)</option>
+                <option value="desc-asc">Description (A-Z)</option>
+                <option value="desc-desc">Description (Z-A)</option>
+                <option value="cat-asc">Category (A-Z)</option>
+                <option value="amount-high">Amount (High-Low)</option>
+                <option value="amount-low">Amount (Low-High)</option>
+              </select>
+              <button id="exportBtn" class="btn-sm btn-primary">Export JSON</button>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table id="recordsTable">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Amount</th>
+                  <th>Category</th>
+                  <th>Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Records will be injected here -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- Settings -->
+      <section id="settings" class="fade-in">
+        <div class="card">
+          <h2>Settings</h2>
+          <div class="form-group">
+            <label>Base Currency</label>
+            <input type="text" id="baseCurrency" value="USD">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Secondary Currency</label>
+              <input type="text" id="currency1" value="EUR">
+            </div>
+            <div class="form-group">
+              <label>Exchange Rate</label>
+              <input type="number" step="0.01" id="rate1" value="0.85">
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2026 Student Finance Tracker by Guy Mugisha | <a href="https://github.com/guymugisha">GitHub</a> <a
+          href="https://wa.me/250791384960?text=Hello!%20%20Feel%20free%20to%20ask%20about%20the%20Student%20Finance%20Tracker.">Whatsapp</a>
+      </p>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="scripts/app.js"></script>
+</body>
+
+</html>
