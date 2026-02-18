@@ -56,13 +56,15 @@ function saveRecords() {
 }
 
 function loadRecords() {
-    const data = localStorage.getItem("financeRecords");
-    try {
-        return data ? JSON.parse(data) : [];
-    } catch (e) {
-        console.error("Failed to parse records from local storage:", e);
-        return [];
-    }
+    return new Promise((resolve) => {
+        const data = localStorage.getItem("financeRecords");
+        try {
+            resolve(data ? JSON.parse(data) : []);
+        } catch (e) {
+            console.error("Failed to parse records from local storage:", e);
+            resolve([]);
+        }
+    });
 }
 
 
@@ -111,107 +113,130 @@ function exportRecords(data) {
 // ui.js
 // ==========================================
 document.addEventListener("DOMContentLoaded", () => {
-    let data = loadRecords();
-    records.push(...data);
-    // UI Elements
-    const form = document.getElementById("recordForm");
-    const successMsg = document.getElementById("successMsg");
-    const categorySelect = document.getElementById("category");
-    const typeRadios = document.querySelectorAll('input[name="type"]');
-    const searchInput = document.getElementById("search");
-    const sortSelect = document.getElementById("sortOptions");
-    const exportBtn = document.getElementById("exportBtn");
+    // Load records: Try LocalStorage first, then fetch from JSON if empty
+    loadRecords().then(data => {
+        records = data; // Assign loaded data to the global records array
 
-    // Unified Update Function
-    function updateTable() {
-        const query = searchInput.value;
-        const sortValue = sortSelect.value;
+        // If no records (first run), try fetching from JSON
+        if (records.length === 0) {
+            fetch('data/records.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("HTTP error " + response.status);
+                    }
+                    return response.json();
+                })
+                .then(jsonData => {
+                    records = jsonData;
+                    saveRecords(); // Save to LocalStorage for persistence
+                    initializeApp();
+                })
+                .catch(err => {
+                    console.error("Failed to load initial records:", err);
+                    initializeApp(); // Initialize even if fetch fails
+                });
+        } else {
+            initializeApp();
+        }
+    });
 
-        let filtered = regexSearch(query, records);
-        let sorted = sortData(filtered, sortValue);
+    function initializeApp() {
+        // UI Elements
+        const form = document.getElementById("recordForm");
+        const successMsg = document.getElementById("successMsg");
+        const categorySelect = document.getElementById("category");
+        const typeRadios = document.querySelectorAll('input[name="type"]');
+        const searchInput = document.getElementById("search");
+        const sortSelect = document.getElementById("sortOptions");
+        const exportBtn = document.getElementById("exportBtn");
 
-        renderTable(sorted);
-    }
+        // Unified Update Function
+        updateTable = function () { // Make it global or accessible if needed, or keep local
+            const query = searchInput.value;
+            const sortValue = sortSelect.value;
 
-    // Initialize Categories (Expense by default)
-    populateCategories(expenseCategories);
+            let filtered = regexSearch(query, records);
+            let sorted = sortData(filtered, sortValue);
 
-    // Toggle Categories on Type Change
-    typeRadios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
-            if (e.target.value === 'income') {
-                populateCategories(incomeCategories);
-            } else {
+            renderTable(sorted);
+        };
+
+        // Initialize Categories (Expense by default)
+        populateCategories(expenseCategories);
+
+        // Toggle Categories on Type Change
+        typeRadios.forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                if (e.target.value === 'income') {
+                    populateCategories(incomeCategories);
+                } else {
+                    populateCategories(expenseCategories);
+                }
+            });
+        });
+
+        // Initial Render
+        updateTable();
+        updateDashboard();
+
+        form.addEventListener("submit", e => {
+            e.preventDefault();
+
+            // Clear old errors + success
+            document.querySelectorAll(".error").forEach(el => el.textContent = "");
+            successMsg.textContent = "";
+
+            const desc = document.getElementById("description").value;
+            const amt = document.getElementById("amount").value;
+            const cat = document.getElementById("category").value;
+            const date = document.getElementById("date").value;
+
+            let valid = true;
+
+            if (!validators.description(desc)) {
+                document.getElementById("descError").textContent = "Invalid description (no leading/trailing spaces).";
+                valid = false;
+            }
+            if (!validators.amount(amt)) {
+                document.getElementById("amountError").textContent = "Invalid amount (must be a number, max 2 decimals).";
+                valid = false;
+            }
+            if (!validators.category(cat)) {
+                document.getElementById("catError").textContent = "Invalid category (letters/spaces only).";
+                valid = false;
+            }
+            if (!validators.date(date)) {
+                document.getElementById("dateError").textContent = "Invalid date (YYYY-MM-DD).";
+                valid = false;
+            }
+
+            if (valid) {
+                // Get selected type (income or expense)
+                const typeRadio = document.querySelector('input[name="type"]:checked');
+                const type = typeRadio ? typeRadio.value : 'expense';
+                const rec = createRecord(desc, amt, cat, date, type);
+
+                records.push(rec);
+                saveRecords();
+
+                updateTable();
+                updateDashboard();
+                form.reset();
+
+                // Reset radio to expense
+                document.querySelector('input[name="type"][value="expense"]').checked = true;
                 populateCategories(expenseCategories);
+
+                // Show success message
+                successMsg.textContent = "✅ Transaction added successfully!";
+                setTimeout(() => successMsg.textContent = "", 3000); // clear after 3s
             }
         });
-    });
 
-
-
-    // Initial Render
-    updateTable();
-
-    form.addEventListener("submit", e => {
-        e.preventDefault();
-
-        // Clear old errors + success
-        document.querySelectorAll(".error").forEach(el => el.textContent = "");
-        successMsg.textContent = "";
-
-        const desc = document.getElementById("description").value;
-        const amt = document.getElementById("amount").value;
-        const cat = document.getElementById("category").value;
-        const date = document.getElementById("date").value;
-
-        let valid = true;
-
-        if (!validators.description(desc)) {
-            document.getElementById("descError").textContent = "Invalid description (no leading/trailing spaces).";
-            valid = false;
-        }
-        if (!validators.amount(amt)) {
-            document.getElementById("amountError").textContent = "Invalid amount (must be a number, max 2 decimals).";
-            valid = false;
-        }
-        if (!validators.category(cat)) {
-            document.getElementById("catError").textContent = "Invalid category (letters/spaces only).";
-            valid = false;
-        }
-        if (!validators.date(date)) {
-            document.getElementById("dateError").textContent = "Invalid date (YYYY-MM-DD).";
-            valid = false;
-        }
-
-        if (valid) {
-            // Get selected type (income or expense)
-            const typeRadio = document.querySelector('input[name="type"]:checked');
-            const type = typeRadio ? typeRadio.value : 'expense';
-
-            const rec = createRecord(desc, amt, cat, date, type);
-            records.push(rec);
-            saveRecords();
-
-            updateTable(); // Re-render table with new data
-            updateDashboard(); // Update stats
-            form.reset();
-
-            // Reset radio to expense
-            document.querySelector('input[name="type"][value="expense"]').checked = true;
-            populateCategories(expenseCategories);
-
-            // Show success message
-            successMsg.textContent = "✅ Transaction added successfully!";
-            setTimeout(() => successMsg.textContent = "", 3000); // clear after 3s
-        }
-    });
-
-    searchInput.addEventListener("input", updateTable);
-    sortSelect.addEventListener("change", updateTable);
-    exportBtn.addEventListener("click", () => exportRecords(records));
-
-    // Initial Dashboard Update
-    updateDashboard();
+        searchInput.addEventListener("input", updateTable);
+        sortSelect.addEventListener("change", updateTable);
+        exportBtn.addEventListener("click", () => exportRecords(records));
+    }
 });
 
 function populateCategories(categories) {
