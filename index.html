@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Student Finance Tracker</title>
-  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -22,7 +22,7 @@
     </header>
 
     <main>
-      <!-- Dashboard -->
+
       <section id="dashboard" class="fade-in">
         <h2>Dashboard</h2>
         <div class="stats-grid">
@@ -33,13 +33,13 @@
           <div class="card stat-card">
             <h3>Spending by Category</h3>
             <div id="categoryChart" class="chart-container">
-              <!-- Chart will be rendered here -->
+
             </div>
           </div>
         </div>
       </section>
 
-      <!-- Add Transaction Form -->
+
       <section id="add" class="fade-in">
         <div class="card">
           <h2>Add Transaction</h2>
@@ -72,7 +72,7 @@
               <div class="form-group">
                 <label for="category">Category</label>
                 <select id="category">
-                  <!-- Options populated dynamically by app.js -->
+
                 </select>
                 <span class="error" id="catError"></span>
               </div>
@@ -90,7 +90,7 @@
         </div>
       </section>
 
-      <!-- Records Table -->
+
       <section id="records" class="fade-in">
         <div class="card">
           <div class="section-header">
@@ -119,20 +119,32 @@
                   <th>Amount</th>
                   <th>Category</th>
                   <th>Date</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody>
-                <!-- Records will be injected here -->
+
               </tbody>
             </table>
           </div>
         </div>
       </section>
 
-      <!-- Settings -->
+
       <section id="settings" class="fade-in">
         <div class="card">
           <h2>Settings</h2>
+          <div class="form-group">
+            <label>Theme</label>
+            <div class="theme-toggle-row">
+              <span class="theme-label">Light</span>
+              <label class="toggle-switch">
+                <input type="checkbox" id="themeToggle">
+                <span class="toggle-slider"></span>
+              </label>
+              <span class="theme-label">Dark</span>
+            </div>
+          </div>
           <div class="form-group">
             <label>Base Currency</label>
             <input type="text" id="baseCurrency" value="USD">
@@ -158,8 +170,8 @@
     </footer>
   </div>
 
-  <!-- Scripts -->
-  <script src="scripts/app.js"></script>
+
+  <script src="app.js"></script>
 </body>
 
 </html>
