@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
         records = data;
 
         if (records.length === 0) {
-            fetch('seed.json')
+            fetch('../seed.json')
                 .then(response => {
                     if (!response.ok) throw new Error("HTTP error " + response.status);
                     return response.json();
