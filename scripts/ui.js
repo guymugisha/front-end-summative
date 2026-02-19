@@ -1,5 +1,5 @@
 // UI HELPER FUNCTIONS
-export function populateCategories(categories) {
+function populateCategories(categories) {
     const select = document.getElementById("category");
     if (!select) return;
     select.innerHTML = "";
@@ -12,7 +12,7 @@ export function populateCategories(categories) {
 }
 
 // DASHBOARD & STATISTICS
-export function updateDashboard(records) {
+function updateDashboard(records) {
     const totalBalance = records.reduce((sum, r) => {
         const amount = r.amount;
         const type = r.type || 'expense';
@@ -45,7 +45,7 @@ export function updateDashboard(records) {
     renderChart(categories, totalExpense);
 }
 
-export function renderChart(categories, totalExpense) {
+function renderChart(categories, totalExpense) {
     const container = document.getElementById("categoryChart");
     if (!container) return;
     container.innerHTML = "";
@@ -77,7 +77,7 @@ export function renderChart(categories, totalExpense) {
 }
 
 // TABLE RENDERING ENGINE
-export function renderTable(data, onDelete) {
+function renderTable(data, onDelete) {
     const table = document.getElementById("recordsTable");
     if (!table) return;
 

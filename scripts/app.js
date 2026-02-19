@@ -1,8 +1,3 @@
-import { expenseCategories, incomeCategories } from './constants.js';
-import { createRecord, validators, regexSearch, sortData, exportRecords } from './utils.js';
-import { saveRecords, loadRecords } from './storage.js';
-import { populateCategories, updateDashboard, renderTable } from './ui.js';
-
 // APPLICATION STATE
 let records = [];
 

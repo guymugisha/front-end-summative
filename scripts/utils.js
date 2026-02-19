@@ -1,5 +1,5 @@
 // CORE DATA FACTORIES
-export function createRecord(desc, amount, category, date, type) {
+function createRecord(desc, amount, category, date, type) {
     const id = `rec_${Date.now()}`;
     const now = new Date().toISOString();
     return {
@@ -15,7 +15,7 @@ export function createRecord(desc, amount, category, date, type) {
 }
 
 // VALIDATION RULES
-export const validators = {
+const validators = {
     description: val => /^\S+(?: \S+)*$/.test(val),
     amount: val => /^(0|[1-9]\d*)(\.\d{1,2})?$/.test(val),
     date: val => /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/.test(val),
@@ -23,7 +23,7 @@ export const validators = {
 };
 
 // DATA SEARCH ENGINE
-export function regexSearch(pattern, records) {
+function regexSearch(pattern, records) {
     try {
         const regex = new RegExp(pattern, "i");
         return records.filter(r => regex.test(r.description) || regex.test(r.category));
@@ -34,7 +34,7 @@ export function regexSearch(pattern, records) {
 }
 
 // DATA SORTING LOGIC
-export function sortData(data, sortValue) {
+function sortData(data, sortValue) {
     const sorted = [...data];
     switch (sortValue) {
         case 'date-new':
@@ -57,7 +57,7 @@ export function sortData(data, sortValue) {
 }
 
 // EXPORT OPERATIONS
-export function exportRecords(data) {
+function exportRecords(data) {
     const jsonStr = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonStr], { type: "application/json" });
     const url = URL.createObjectURL(blob);

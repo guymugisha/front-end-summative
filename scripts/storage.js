@@ -1,9 +1,9 @@
 // LOCAL STORAGE OPERATIONS
-export function saveRecords(records) {
+function saveRecords(records) {
     localStorage.setItem("financeRecords", JSON.stringify(records));
 }
 
-export function loadRecords() {
+function loadRecords() {
     return new Promise((resolve) => {
         const data = localStorage.getItem("financeRecords");
         try {
