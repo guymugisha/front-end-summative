@@ -1,9 +1,11 @@
 
+// GLOBAL CONSTANTS & INITIAL STATE
 const expenseCategories = ["Food", "Books", "Transport", "Entertainment", "Fees", "Other"];
 const incomeCategories = ["Salary", "Allowance", "Gift", "Investments", "Other"];
 
 let records = [];
 
+// CORE DATA FACTORIES
 function createRecord(desc, amount, category, date, type) {
     const id = `rec_${Date.now()}`;
     const now = new Date().toISOString();
@@ -20,6 +22,7 @@ function createRecord(desc, amount, category, date, type) {
 }
 
 
+// VALIDATION RULES
 const validators = {
     description: val => /^\S+(?: \S+)*$/.test(val),
     amount: val => /^(0|[1-9]\d*)(\.\d{1,2})?$/.test(val),
@@ -28,6 +31,7 @@ const validators = {
 };
 
 
+// DATA SEARCH ENGINE
 function regexSearch(pattern, records) {
     try {
         const regex = new RegExp(pattern, "i");
@@ -39,6 +43,7 @@ function regexSearch(pattern, records) {
 }
 
 
+// LOCAL STORAGE OPERATIONS
 function saveRecords() {
     localStorage.setItem("financeRecords", JSON.stringify(records));
 }
@@ -57,6 +62,7 @@ function loadRecords() {
 
 
 
+// DATA SORTING LOGIC
 function sortData(data, sortValue) {
     const sorted = [...data];
     switch (sortValue) {
@@ -80,6 +86,7 @@ function sortData(data, sortValue) {
 }
 
 
+// EXPORT OPERATIONS
 function exportRecords(data) {
     const jsonStr = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonStr], { type: "application/json" });
@@ -93,6 +100,7 @@ function exportRecords(data) {
     URL.revokeObjectURL(url);
 }
 
+// APPLICATION INITIALIZATION & DOM EVENTS
 document.addEventListener("DOMContentLoaded", () => {
     loadRecords().then(data => {
         records = data;
@@ -239,6 +247,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// UI HELPER FUNCTIONS
 function populateCategories(categories) {
     const select = document.getElementById("category");
     select.innerHTML = "";
@@ -250,6 +259,7 @@ function populateCategories(categories) {
     });
 }
 
+// DASHBOARD & STATISTICS
 function updateDashboard() {
     const totalBalance = records.reduce((sum, r) => {
         const amount = r.amount;
@@ -315,6 +325,7 @@ function renderChart(categories, totalExpense) {
     });
 }
 
+// RECORD MANAGEMENT
 function deleteRecord(id) {
     records = records.filter(r => r.id !== id);
     saveRecords();
@@ -322,6 +333,7 @@ function deleteRecord(id) {
     updateDashboard();
 }
 
+// TABLE RENDERING ENGINE
 function renderTable(data) {
     const table = document.getElementById("recordsTable");
 
