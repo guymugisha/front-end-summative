@@ -34,6 +34,10 @@ The Student Finance Tracker is a lightweight application built with vanilla web 
 - `app.js`: Core application logic, event handlers, and data operations.
 - `seed.json`: Sample transaction data for initial setup.
 
+  ## Links
+  - Github pages link: https://guymugisha.github.io/front-end-summative/
+  - Youtube Demo Video: https://youtu.be/Yf8kRRQ6p_U
+
 ## 👤 Author
 
 **Guy Mugisha**
