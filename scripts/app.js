@@ -23,29 +23,10 @@ function updateTable() {
 }
 
 // APPLICATION INITIALIZATION & DOM EVENTS
-document.addEventListener("DOMContentLoaded", () => {
-    loadRecords().then(data => {
-        records = data;
-
-        if (records.length === 0) {
-            fetch('../seed.json')
-                .then(response => {
-                    if (!response.ok) throw new Error("HTTP error " + response.status);
-                    return response.json();
-                })
-                .then(jsonData => {
-                    records = jsonData;
-                    saveRecords(records);
-                    initializeApp();
-                })
-                .catch(err => {
-                    console.error("Failed to load seed data:", err);
-                    initializeApp();
-                });
-        } else {
-            initializeApp();
-        }
-    });
+document.addEventListener("DOMContentLoaded", async () => {
+    // loadRecords handles fetching from API (seed.json) or LocalStorage fallback
+    records = await loadRecords();
+    initializeApp();
 
     // Theme logic stays here as it's app-wide setup
     const themeToggle = document.getElementById("themeToggle");

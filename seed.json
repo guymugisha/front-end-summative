@@ -2,7 +2,7 @@
     {
         "id": "rec_1708118000000",
         "description": "Textbooks",
-        "amount": 120.50,
+        "amount": 120.5,
         "category": "Books",
         "date": "2024-02-15",
         "type": "expense",
@@ -12,7 +12,7 @@
     {
         "id": "rec_1708204400000",
         "description": "Monthly Allowance",
-        "amount": 500.00,
+        "amount": 500,
         "category": "Allowance",
         "date": "2024-02-01",
         "type": "income",
@@ -22,7 +22,7 @@
     {
         "id": "rec_1708290800000",
         "description": "Grocery Shopping",
-        "amount": 45.20,
+        "amount": 45.2,
         "category": "Food",
         "date": "2024-02-10",
         "type": "expense",
@@ -32,7 +32,7 @@
     {
         "id": "rec_1740044123001",
         "description": "International Student Tuition Fee",
-        "amount": 5000.00,
+        "amount": 5000,
         "category": "Education",
         "date": "2024-03-01",
         "type": "expense",
@@ -42,7 +42,7 @@
     {
         "id": "rec_1740044123002",
         "description": "Bus Fare (Special Discount)",
-        "amount": 0.50,
+        "amount": 0.5,
         "category": "Transport",
         "date": "2024-03-02",
         "type": "expense",
@@ -82,7 +82,7 @@
     {
         "id": "rec_1740044123006",
         "description": "Birthday Gift from Grandma!",
-        "amount": 100.00,
+        "amount": 100,
         "category": "Gift",
         "date": "2024-03-06",
         "type": "income",
@@ -92,11 +92,21 @@
     {
         "id": "rec_1740044123007",
         "description": "Part-time Job Bonus + Tips",
-        "amount": 250.50,
+        "amount": 250.5,
         "category": "Work",
         "date": "2024-03-07",
         "type": "income",
         "createdAt": "2024-03-07T18:30:00.000Z",
         "updatedAt": "2024-03-07T18:30:00.000Z"
+    },
+    {
+        "id": "rec_1771614067137",
+        "description": "zelle",
+        "amount": 4000,
+        "category": "Salary",
+        "date": "2026-02-19",
+        "type": "income",
+        "createdAt": "2026-02-20T19:01:07.137Z",
+        "updatedAt": "2026-02-20T19:01:07.137Z"
     }
 ]

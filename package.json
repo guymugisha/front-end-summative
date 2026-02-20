@@ -1,0 +1,26 @@
+{
+  "name": "front-end-summative",
+  "version": "1.0.0",
+  "description": "A sleek, functional, and modern web application designed to help students manage their finances efficiently. Track your income, monitor your spending, and keep your budget in check with a premium user experience.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guymugisha/front-end-summative.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guymugisha/front-end-summative/issues"
+  },
+  "homepage": "https://github.com/guymugisha/front-end-summative#readme",
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1"
+  }
+}
