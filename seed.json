@@ -28,5 +28,75 @@
         "type": "expense",
         "createdAt": "2024-02-10T14:30:00.000Z",
         "updatedAt": "2024-02-10T14:30:00.000Z"
+    },
+    {
+        "id": "rec_1740044123001",
+        "description": "International Student Tuition Fee",
+        "amount": 5000.00,
+        "category": "Education",
+        "date": "2024-03-01",
+        "type": "expense",
+        "createdAt": "2024-03-01T08:00:00.000Z",
+        "updatedAt": "2024-03-01T08:00:00.000Z"
+    },
+    {
+        "id": "rec_1740044123002",
+        "description": "Bus Fare (Special Discount)",
+        "amount": 0.50,
+        "category": "Transport",
+        "date": "2024-03-02",
+        "type": "expense",
+        "createdAt": "2024-03-02T09:15:00.000Z",
+        "updatedAt": "2024-03-02T09:15:00.000Z"
+    },
+    {
+        "id": "rec_1740044123003",
+        "description": "Coffee & Snacks @ Cafe #1",
+        "amount": 12.75,
+        "category": "Food & Drinks",
+        "date": "2024-03-03",
+        "type": "expense",
+        "createdAt": "2024-03-03T11:20:00.000Z",
+        "updatedAt": "2024-03-03T11:20:00.000Z"
+    },
+    {
+        "id": "rec_1740044123004",
+        "description": "Amazon Refund - Faulty Pen",
+        "amount": 4.99,
+        "category": "Returns",
+        "date": "2024-03-04",
+        "type": "income",
+        "createdAt": "2024-03-04T15:45:00.000Z",
+        "updatedAt": "2024-03-04T15:45:00.000Z"
+    },
+    {
+        "id": "rec_1740044123005",
+        "description": "Software Subscription (Annual)",
+        "amount": 199.99,
+        "category": "Utilities",
+        "date": "2024-03-05",
+        "type": "expense",
+        "createdAt": "2024-03-05T10:00:00.000Z",
+        "updatedAt": "2024-03-05T10:00:00.000Z"
+    },
+    {
+        "id": "rec_1740044123006",
+        "description": "Birthday Gift from Grandma!",
+        "amount": 100.00,
+        "category": "Gift",
+        "date": "2024-03-06",
+        "type": "income",
+        "createdAt": "2024-03-06T12:00:00.000Z",
+        "updatedAt": "2024-03-06T12:00:00.000Z"
+    },
+    {
+        "id": "rec_1740044123007",
+        "description": "Part-time Job Bonus + Tips",
+        "amount": 250.50,
+        "category": "Work",
+        "date": "2024-03-07",
+        "type": "income",
+        "createdAt": "2024-03-07T18:30:00.000Z",
+        "updatedAt": "2024-03-07T18:30:00.000Z"
     }
 ]
